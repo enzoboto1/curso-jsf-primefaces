@@ -67,4 +67,5 @@ public class RamoAtividade implements Serializable {
 	public String toString() {
 		return "RamoAtividade [id=" + id + "]";
 	}
+
 }
