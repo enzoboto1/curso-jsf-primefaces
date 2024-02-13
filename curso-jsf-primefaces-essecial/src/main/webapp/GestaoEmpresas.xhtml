@@ -20,12 +20,50 @@
 		<h:form>
 			<h:panelGrid columns="2">
 				<h:outputLabel value="Razão social: " for="razaoSocial" />
-				<h:inputText id="razaoSocial"
-					value="#{gestaoEmpresasBean.empresa.razaoSocial}" />
+				<h:panelGroup>
+					<h:inputText id="razaoSocial"
+						value="#{gestaoEmpresasBean.empresa.razaoSocial}"
+						label="Razão social" required="true" />
+					<h:message for="razaoSocial" />
+				</h:panelGroup>
 
 				<h:outputLabel value="Nome fantasia: " for="nomeFantasia" />
-				<h:inputText id="nomeFantasia"
-					value="#{gestaoEmpresasBean.empresa.nomeFantasia}" />
+				<h:panelGroup>
+					<h:inputText id="nomeFantasia"
+						value="#{gestaoEmpresasBean.empresa.nomeFantasia}"
+						label="Nome fantasia" required="true" />
+					<h:message for="nomeFantasia" />
+				</h:panelGroup>
+
+				<h:outputLabel value="CNPJ: " for="cnpj" />
+				<h:panelGroup>
+					<h:inputText id="cnpj" value="#{gestaoEmpresasBean.empresa.cnpj}"
+						label="CNPJ" required="true">
+						<f:validateLength minimum="18" maximum="18" />
+					</h:inputText>
+					<h:message for="cnpj" />
+				</h:panelGroup>
+
+				<h:outputLabel value="Data Fundação: " for="dataFundacao" />
+				<h:panelGroup>
+					<h:inputText id="dataFundacao"
+						value="#{gestaoEmpresasBean.empresa.dataFundacao}"
+						label="Data Fundação">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:inputText>
+					<h:message for="dataFundacao" />
+				</h:panelGroup>
+
+				<h:outputLabel value="Faturamento: " for="faturamento" />
+				<h:panelGroup>
+					<h:inputText id="faturamento"
+						value="#{gestaoEmpresasBean.empresa.faturamento}"
+						label="Faturamento">
+						<f:convertNumber pattern="#,##0.00" />
+						<f:validateDoubleRange minimum="0" />
+					</h:inputText>
+					<h:message for="faturamento" />
+				</h:panelGroup>
 
 				<h:outputLabel value="Tipo empresa" for="tipo" />
 				<h:selectOneMenu id="tipo"
