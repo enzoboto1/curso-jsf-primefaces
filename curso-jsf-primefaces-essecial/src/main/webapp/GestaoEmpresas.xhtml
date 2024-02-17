@@ -16,19 +16,23 @@
 		</f:metadata>
 
 		<h:form>
+			<p:messages autoUpdate="true" />
+
 			<p:toolbar>
 				<f:facet name="left">
 					<p:inputText placeholder="Digite aqui um termo para pesquisa..."
-						size="30" style="margin-right: 10px;" />
+						value="#{gestaoEmpresasBean.termoPesquisa}" size="30"
+						style="margin-right: 10px;" />
 
-					<p:commandButton type="button" value="Pesquisar"
-						icon="pi pi-search" iconPos="right" style="margin-right: 10px;" />
+					<p:commandButton value="Pesquisar"
+						actionListener="#{gestaoEmpresasBean.pesquisar()}"
+						update="empresasDataTable" icon="pi pi-search" iconPos="right"
+						style="margin-right: 10px;" />
 
 					<p:divider layout="vertical" />
 
-					<p:commandButton type="button" value="Nova"
-						icon="pi pi-plus-circle" iconPos="right"
-						style="margin-right: 10px;"
+					<p:commandButton value="Nova" icon="pi pi-plus-circle"
+						iconPos="right" style="margin-right: 10px;"
 						onclick="PF('empresaDialogWidgetVar').show()" />
 
 					<p:divider layout="vertical" />
@@ -48,9 +52,10 @@
 
 			<p:spacer height="20px" />
 
-			<p:dataTable value="#{gestaoEmpresasBean.listaEmpresas}"
-				var="empresa" emptyMessage="Nenhuma informação a ser exibida"
-				paginator="true" rows="10" paginatorPosition="bottom">
+			<p:dataTable id="empresasDataTable"
+				value="#{gestaoEmpresasBean.listaEmpresas}" var="empresa"
+				emptyMessage="Nenhuma informação a ser exibida" paginator="true"
+				rows="10" paginatorPosition="bottom">
 				<p:column headerText="Razão social" sortBy="#{empresa.razaoSocial}">
 					<h:outputText value="#{empresa.razaoSocial}" />
 				</p:column>
@@ -67,10 +72,10 @@
 					<h:outputText value="#{empresa.ramoAtividade.descricao}" />
 				</p:column>
 			</p:dataTable>
-			<p:dialog header="Header" widgetVar="empresaDialogWidgetVar"
-				modal="true" resizable="false" closeOnEscape="true"
-				showEffect="fade">
-				<p:commandButton value="Confirmar" />
+
+			<p:dialog header="Nova empresa" widgetVar="empresaDialogWidgetVar"
+				modal="true" resizable="false" closeOnEscape="true">
+				<p:commandButton value="Teste!" />
 			</p:dialog>
 		</h:form>
 	</ui:define>
