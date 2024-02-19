@@ -13,6 +13,7 @@ import com.algaworks.erp.model.RamoAtividade;
 import com.algaworks.erp.model.TipoEmpresa;
 import com.algaworks.erp.repository.Empresas;
 import com.algaworks.erp.repository.RamoAtividades;
+import com.algaworks.erp.service.CadastroEmpresaService;
 import com.algaworks.erp.util.FacesMessages;
 
 @Named
@@ -30,12 +31,30 @@ public class GestaoEmpresasBean implements Serializable {
 	@Inject
 	private RamoAtividades ramoAtividades;
 
+	@Inject
+	private CadastroEmpresaService cadastroEmpresaService;
+
 	private List<Empresa> listaEmpresas;
 
 	private String termoPesquisa;
 
-	@SuppressWarnings("rawtypes")
 	private Converter ramoAtividadeConverter;
+
+	private Empresa empresa;
+
+	public void prepararNovaEmpresa() {
+		empresa = new Empresa();
+	}
+
+	public void salvar() {
+		cadastroEmpresaService.salvar(empresa);
+
+		if (jaHouvePesquisa()) {
+			pesquisar();
+		}
+
+		messages.info("Empresa cadastrada com sucesso!");
+	}
 
 	public void pesquisar() {
 		listaEmpresas = empresas.pesquisar(termoPesquisa);
@@ -57,6 +76,13 @@ public class GestaoEmpresasBean implements Serializable {
 		return listaRamoAtividades;
 	}
 
+	private boolean jaHouvePesquisa() {
+//		return termoPesquisa != null && !"".equals(termoPesquisa);
+		termoPesquisa = (termoPesquisa == null) ? "" : termoPesquisa;
+
+		return true;
+	}
+
 	public List<Empresa> getListaEmpresas() {
 		return listaEmpresas;
 	}
@@ -73,8 +99,11 @@ public class GestaoEmpresasBean implements Serializable {
 		return TipoEmpresa.values();
 	}
 
-	@SuppressWarnings("rawtypes")
 	public Converter getRamoAtividadeConverter() {
 		return ramoAtividadeConverter;
+	}
+
+	public Empresa getEmpresa() {
+		return empresa;
 	}
 }
