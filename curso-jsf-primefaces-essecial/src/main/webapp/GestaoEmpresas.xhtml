@@ -64,7 +64,10 @@
 					</span>
 
 					<p:commandButton title="Exportar para o Excel"
-						icon="fa fa-file-excel-o" />
+						icon="fa fa-file-excel-o" ajax="false">
+						<p:dataExporter fileName="Empresas" type="xls"
+							target="empresasDataTable" />
+					</p:commandButton>
 				</f:facet>
 			</p:toolbar>
 
