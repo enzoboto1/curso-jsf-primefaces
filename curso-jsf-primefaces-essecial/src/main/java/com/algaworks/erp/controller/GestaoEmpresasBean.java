@@ -39,7 +39,6 @@ public class GestaoEmpresasBean implements Serializable {
 
 	private String termoPesquisa;
 
-	@SuppressWarnings("rawtypes")
 	private Converter ramoAtividadeConverter;
 
 	private Empresa empresa;
@@ -61,9 +60,6 @@ public class GestaoEmpresasBean implements Serializable {
 
 		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds()
 				.add("frm:empresasDataTable frm:messages");
-
-		// RequestContext.getCurrentInstance().update(Arrays.asList(
-		// "frm:empresasDataTable", "frm:messages"));
 	}
 
 	public void pesquisar() {
@@ -106,12 +102,19 @@ public class GestaoEmpresasBean implements Serializable {
 		return TipoEmpresa.values();
 	}
 
-	@SuppressWarnings("rawtypes")
 	public Converter getRamoAtividadeConverter() {
 		return ramoAtividadeConverter;
 	}
 
 	public Empresa getEmpresa() {
 		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
+
+	public boolean isEmpresaSeleciona() {
+		return empresa != null && empresa.getId() != null;
 	}
 }
