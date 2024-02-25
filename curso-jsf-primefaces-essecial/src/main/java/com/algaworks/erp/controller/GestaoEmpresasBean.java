@@ -3,6 +3,7 @@ package com.algaworks.erp.controller;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -38,6 +39,7 @@ public class GestaoEmpresasBean implements Serializable {
 
 	private String termoPesquisa;
 
+	@SuppressWarnings("rawtypes")
 	private Converter ramoAtividadeConverter;
 
 	private Empresa empresa;
@@ -51,9 +53,17 @@ public class GestaoEmpresasBean implements Serializable {
 
 		if (jaHouvePesquisa()) {
 			pesquisar();
+		} else {
+			todasEmpresas();
 		}
 
-		messages.info("Empresa cadastrada com sucesso!");
+		messages.info("Empresa salva com sucesso!");
+
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds()
+				.add("frm:empresasDataTable frm:messages");
+
+		// RequestContext.getCurrentInstance().update(Arrays.asList(
+		// "frm:empresasDataTable", "frm:messages"));
 	}
 
 	public void pesquisar() {
@@ -77,10 +87,7 @@ public class GestaoEmpresasBean implements Serializable {
 	}
 
 	private boolean jaHouvePesquisa() {
-//		return termoPesquisa != null && !"".equals(termoPesquisa);
-		termoPesquisa = (termoPesquisa == null) ? "" : termoPesquisa;
-
-		return true;
+		return termoPesquisa != null && !"".equals(termoPesquisa);
 	}
 
 	public List<Empresa> getListaEmpresas() {
@@ -99,6 +106,7 @@ public class GestaoEmpresasBean implements Serializable {
 		return TipoEmpresa.values();
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Converter getRamoAtividadeConverter() {
 		return ramoAtividadeConverter;
 	}

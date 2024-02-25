@@ -15,42 +15,42 @@
 			<f:viewAction action="#{gestaoEmpresasBean.todasEmpresas}" />
 		</f:metadata>
 
-		<h:form>
-			<p:messages id="messages" closable="true">
-				<p:autoUpdate />
-			</p:messages>
+		<h:form id="frm">
+			<p:messages id="messages" />
 
 			<p:toolbar>
 				<f:facet name="left">
-					<p:inputText placeholder="Digite aqui um termo para pesquisa..."
-						value="#{gestaoEmpresasBean.termoPesquisa}" size="30"
-						style="margin-right: 10px;" id="termoPesquisa" />
+					<p:inputText id="termoPesquisa"
+						placeholder="Digite aqui um termo para pesquisa..." size="30"
+						value="#{gestaoEmpresasBean.termoPesquisa}" />
 
-					<p:commandButton value="Pesquisar"
-						actionListener="#{gestaoEmpresasBean.pesquisar()}"
-						update="empresasDataTable" icon="pi pi-search" iconPos="right"
-						style="margin-right: 10px;" process="@this termoPesquisa" />
+					<p:commandButton value="Pesquisar" icon="fa fa-search"
+						actionListener="#{gestaoEmpresasBean.pesquisar}"
+						update="empresasDataTable messages" process="@this termoPesquisa" />
 
-					<p:divider layout="vertical" />
+					<span class="ui-separator"> <span
+						class="ui-icon ui-icon-grip-dotted-vertical" />
+					</span>
 
-					<p:commandButton value="Nova" icon="pi pi-plus-circle"
-						iconPos="right" style="margin-right: 10px;"
+					<p:commandButton value="Nova" icon="fa fa-plus"
 						actionListener="#{gestaoEmpresasBean.prepararNovaEmpresa}"
 						oncomplete="PF('empresaDialogWidgetVar').show()"
 						update="empresaDialog" process="@this" />
 
-					<p:divider layout="vertical" />
+					<span class="ui-separator"> <span
+						class="ui-icon ui-icon-grip-dotted-vertical" />
+					</span>
 
-					<p:commandButton title="Editar" icon="pi pi-file-edit"
-						style="margin-right: 10px;" />
+					<p:commandButton title="Editar" icon="fa fa-edit" />
 
-					<p:commandButton title="Excluir" icon="pi pi-trash"
-						style="margin-right: 10px;" />
+					<p:commandButton title="Excluir" icon="fa fa-trash" />
 
-					<p:divider layout="vertical" />
+					<span class="ui-separator"> <span
+						class="ui-icon ui-icon-grip-dotted-vertical" />
+					</span>
 
 					<p:commandButton title="Exportar para o Excel"
-						icon="pi pi-file-excel" style="margin-right: 10px;" />
+						icon="fa fa-file-excel-o" />
 				</f:facet>
 			</p:toolbar>
 
@@ -80,6 +80,8 @@
 			<p:dialog id="empresaDialog" header="Nova empresa"
 				widgetVar="empresaDialogWidgetVar" modal="true" resizable="false"
 				closeOnEscape="true">
+				<p:messages id="empresaMessages" />
+
 				<h:panelGrid id="empresaPanelGrid" columns="2"
 					rendered="#{gestaoEmpresasBean.empresa ne null}">
 					<p:outputLabel value="Razão social: " for="razaoSocial" />
@@ -87,7 +89,7 @@
 						value="#{gestaoEmpresasBean.empresa.razaoSocial}" />
 
 					<p:outputLabel value="Nome fantasia: " for="nomeFantasia" />
-					<p:inputText id="nomeFantasia" size="80" maxlength="120"
+					<p:inputText id="nomeFantasia" size="80" maxlength="80"
 						value="#{gestaoEmpresasBean.empresa.nomeFantasia}" />
 
 					<p:outputLabel value="Tipo empresa: " for="tipo" />
@@ -118,8 +120,8 @@
 					<h:outputLabel />
 					<p:commandButton value="Salvar"
 						actionListener="#{gestaoEmpresasBean.salvar}"
-						update="empresasDataTable empresaPanelGrid"
-						oncomplete="PF('empresaDialogWidgetVar').hide()"
+						update="empresaPanelGrid empresaMessages"
+						oncomplete="if (!args.validationFailed) PF('empresaDialogWidgetVar').hide()"
 						process="empresaDialog" />
 				</h:panelGrid>
 			</p:dialog>
